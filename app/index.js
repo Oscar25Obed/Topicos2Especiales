@@ -35,6 +35,19 @@ app.get('/data', (req, res) => {
   });
 });
 
+// Endpoint para obtener todos los usuarios
+app.get('/users', (req, res) => {
+  console.log('Recibida solicitud en /users');
+  db.query('SELECT * FROM users', (err, results) => {
+    if (err) {
+      console.error('Error en la consulta:', err);
+      res.status(500).send(`Error en la consulta: ${err.message}`);
+    } else {
+      res.json(results);
+    }
+  });
+});
+
 var listener = app.listen(process.env.PORT || 80, function() {
  console.log('listening on port ' + listener.address().port);
 });
